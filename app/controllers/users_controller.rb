@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
   def create
-    render json: { message: "User created successfully" }
+    @user = User.create(user_params)
+    if @user.save
+      render json: @user.as_json
+    else
+      render json: { message: "User creation failed", errors: @user.errors.full_messages }
+    end
   end
 
   private
