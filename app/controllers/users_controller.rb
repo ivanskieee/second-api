@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.save
-      render json: @user.as_json(only: [:email, :first_name, :last_name])
+      render json: @user.as_json
     else
       render json: { message: "User creation failed", errors: @user.errors.full_messages }
     end
@@ -15,6 +15,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :first_name, :last_name)
+    params.require(:user).permit(:email, :password, :first_name, :last_name, :username)
   end
-end
+end 
